@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Madhu Tech Skills — Code. Build. Succeed.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Rajdhani:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+:root {
+  --red:       #c8102e;
+  --red-bright:#e8112f;
+  --red-deep:  #8b0a1e;
+  --red-glow:  rgba(200,16,46,0.18);
+  --red-faint: rgba(200,16,46,0.07);
+  --gold:      #d4a042;
+  --gold-lt:   #f0c060;
+  --black:     #080608;
+  --dark:      #100810;
+  --card:      #130d12;
+  --card2:     #1a1019;
+  --white:     #fdf6f0;
+  --off:       #c8bbb5;
+  --muted:     #7a6a65;
+  --border:    rgba(200,16,46,0.15);
+  --border-g:  rgba(212,160,66,0.2);
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ─── CUSTOM CURSOR ─── */
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--red-bright);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  width: 34px; height: 34px;
+  border: 1px solid rgba(200,16,46,0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: left 0.12s ease, top 0.12s ease, width 0.25s, height 0.25s;
+}
+
+/* ─── NOISE OVERLAY ─── */
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none; z-index:0; opacity:.5;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:var(--black); }
+::-webkit-scrollbar-thumb { background:var(--red-deep); border-radius:3px; }
+
+/* ══════════════ NAV ══════════════ */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.1rem 5%;
+  background:rgba(8,6,8,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+
+.logo {
+  display:flex; align-items:center; gap:.75rem;
+}
+.logo-mark {
+  width:38px; height:38px;
+  background:var(--red);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:1rem; color:#fff;
+  flex-shrink:0;
+  box-shadow: 0 0 20px rgba(200,16,46,0.4);
+}
+.logo-text {
+  font-family:'Playfair Display',serif;
+  font-weight:800; font-size:1.25rem; letter-spacing:-.3px;
+  line-height:1;
+}
+.logo-text em { font-style:normal; color:var(--gold); }
+.logo-sub {
+  font-size:.62rem; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--muted); font-family:'Rajdhani',sans-serif; font-weight:500;
+  margin-top:2px;
+}
+
+nav ul {
+  display:flex; gap:2.5rem; list-style:none;
+}
+nav ul a {
+  font-size:.82rem; font-weight:600; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--muted);
+  text-decoration:none; transition:color .2s;
+  position:relative;
+}
+nav ul a::after {
+  content:''; position:absolute; bottom:-4px; left:0; right:0;
+  height:1px; background:var(--red); transform:scaleX(0);
+  transform-origin:left; transition:transform .25s;
+}
+nav ul a:hover { color:var(--white); }
+nav ul a:hover::after { transform:scaleX(1); }
+
+.nav-cta {
+  display:flex; align-items:center; gap:.6rem;
+  background:var(--red); color:#fff;
+  padding:.55rem 1.4rem; border:none; border-radius:3px;
+  font-family:'Rajdhani',sans-serif; font-weight:700;
+  font-size:.82rem; letter-spacing:.1em; text-transform:uppercase;
+  cursor:none; transition:all .2s;
+  box-shadow:0 4px 20px rgba(200,16,46,0.35);
+}
+.nav-cta:hover { background:var(--red-bright); box-shadow:0 6px 30px rgba(200,16,46,0.55); transform:translateY(-1px); }
+.nav-cta .arrow { font-size:1rem; transition:transform .2s; }
+.nav-cta:hover .arrow { transform:translateX(3px); }
+
+
+/* ══════════════ HERO ══════════════ */
+.hero {
+  min-height:100vh;
+  display:grid; grid-template-columns:55% 45%;
+  align-items:center;
+  padding:9rem 5% 5rem;
+  position:relative; overflow:hidden;
+}
+
+/* Diagonal red slash */
+.hero::before {
+  content:'';
+  position:absolute;
+  top:0; right:0;
+  width:48%; height:100%;
+  background:linear-gradient(160deg, var(--dark) 0%, #1a0810 100%);
+  clip-path:polygon(8% 0,100% 0,100% 100%,0% 100%);
+  z-index:0;
+}
+
+/* Large faint text watermark */
+.hero-watermark {
+  position:absolute; right:-2%;
+  top:50%; transform:translateY(-50%);
+  font-family:'Playfair Display',serif;
+  font-size:clamp(6rem,12vw,14rem);
+  font-weight:900; letter-spacing:-.05em;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(200,16,46,0.1);
+  pointer-events:none; z-index:0;
+  white-space:nowrap; user-select:none;
+}
+
+/* Red glow blob */
+.hero-blob {
+  position:absolute;
+  width:500px; height:500px; border-radius:50%;
+  background:radial-gradient(circle, rgba(200,16,46,0.12) 0%, transparent 70%);
+  top:50%; left:35%; transform:translate(-50%,-50%);
+  pointer-events:none; z-index:0;
+  animation:breathe 5s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,100%{transform:translate(-50%,-50%) scale(1);}
+  50%{transform:translate(-50%,-50%) scale(1.12);}
+}
+
+.hero-left { position:relative; z-index:1; }
+
+.eyebrow {
+  display:inline-flex; align-items:center; gap:.7rem;
+  margin-bottom:2rem;
+  animation:riseUp .7s ease both;
+}
+.eyebrow-line { width:36px; height:2px; background:var(--red); }
+.eyebrow-text {
+  font-size:.72rem; font-weight:700; letter-spacing:.25em;
+  text-transform:uppercase; color:var(--red);
+}
+
+.hero-title {
+  font-family:'Playfair Display',serif;
+  font-weight:900;
+  font-size:clamp(3rem,5.5vw,5rem);
+  line-height:1.05; letter-spacing:-.04em;
+  margin-bottom:1.2rem;
+  animation:riseUp .7s .08s ease both;
+}
+.hero-title .line2 {
+  color:transparent;
+  -webkit-text-stroke:1.5px var(--white);
+}
+.hero-title .accent { color:var(--red); }
+
+.tagline-strip {
+  display:inline-block;
+  font-family:'Rajdhani',sans-serif;
+  font-size:.9rem; font-weight:700;
+  letter-spacing:.35em; text-transform:uppercase;
+  color:var(--gold);
+  padding:.45rem 1.2rem;
+  border:1px solid var(--border-g);
+  border-radius:2px;
+  background:rgba(212,160,66,.06);
+  margin-bottom:2rem;
+  animation:riseUp .7s .16s ease both;
+}
+
+.hero-desc {
+  font-family:'Crimson Pro',serif;
+  font-size:1.18rem; font-weight:300; line-height:1.85;
+  color:var(--off);
+  max-width:500px; margin-bottom:2.8rem;
+  animation:riseUp .7s .24s ease both;
+}
+
+.hero-btns {
+  display:flex; gap:1rem; flex-wrap:wrap;
+  animation:riseUp .7s .32s ease both;
+}
+
+.btn-fire {
+  display:inline-flex; align-items:center; gap:.6rem;
+  background:var(--red);
+  color:#fff; padding:.85rem 2.2rem;
+  border:none; border-radius:3px;
+  font-family:'Rajdhani',sans-serif; font-weight:700;
+  font-size:.88rem; letter-spacing:.12em; text-transform:uppercase;
+  cursor:none; text-decoration:none;
+  box-shadow:0 6px 30px rgba(200,16,46,0.45);
+  transition:all .25s; position:relative; overflow:hidden;
+}
+.btn-fire::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+  transform:translateX(-100%); transition:transform .5s;
+}
+.btn-fire:hover::before { transform:translateX(100%); }
+.btn-fire:hover { box-shadow:0 10px 40px rgba(200,16,46,0.65); transform:translateY(-2px); }
+
+.btn-ghost {
+  display:inline-flex; align-items:center; gap:.6rem;
+  background:transparent;
+  color:var(--white); padding:.85rem 2.2rem;
+  border:1px solid rgba(255,255,255,0.18);
+  border-radius:3px;
+  font-family:'Rajdhani',sans-serif; font-weight:700;
+  font-size:.88rem; letter-spacing:.12em; text-transform:uppercase;
+  cursor:none; text-decoration:none;
+  transition:all .25s;
+}
+.btn-ghost:hover { border-color:var(--gold); color:var(--gold); }
+
+/* Hero right – floating card */
+.hero-right {
+  position:relative; z-index:1;
+  display:flex; flex-direction:column; gap:1.2rem;
+  padding-left:4%;
+  animation:riseUp .8s .2s ease both;
+}
+
+.mentor-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px; padding:2rem;
+  position:relative; overflow:hidden;
+}
+.mentor-card::before {
+  content:''; position:absolute; top:-1px; left:2rem; right:2rem; height:2px;
+  background:linear-gradient(90deg, transparent, var(--red), transparent);
+}
+
+.avatar-row { display:flex; align-items:center; gap:1.2rem; margin-bottom:1.5rem; }
+.avatar {
+  width:64px; height:64px; border-radius:50%;
+  background:linear-gradient(135deg, var(--red-deep), var(--red));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Playfair Display',serif; font-size:1.7rem; font-weight:900; color:#fff;
+  border:2px solid rgba(200,16,46,0.4);
+  box-shadow:0 0 30px rgba(200,16,46,0.3);
+  flex-shrink:0;
+}
+.avatar-info h3 {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:1.1rem;
+  margin-bottom:.2rem;
+}
+.avatar-info p {
+  font-size:.75rem; letter-spacing:.1em; color:var(--gold);
+  text-transform:uppercase; font-weight:600;
+}
+
+.stat-trio {
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:.8rem;
+  margin-bottom:1.2rem;
+}
+.stat-box {
+  background:rgba(200,16,46,.07); border:1px solid var(--border);
+  border-radius:10px; padding:.9rem .6rem; text-align:center;
+}
+.stat-box .n {
+  font-family:'Playfair Display',serif; font-weight:900; font-size:1.7rem;
+  color:var(--red-bright); line-height:1;
+}
+.stat-box .l {
+  font-size:.68rem; letter-spacing:.08em; color:var(--muted);
+  text-transform:uppercase; margin-top:.2rem;
+}
+
+.mode-row { display:flex; gap:.7rem; }
+.mode-chip {
+  flex:1; text-align:center; padding:.5rem;
+  border-radius:6px; font-size:.78rem; font-weight:700;
+  letter-spacing:.06em; text-transform:uppercase;
+}
+.chip-red { background:rgba(200,16,46,.15); border:1px solid rgba(200,16,46,.35); color:var(--red-bright); }
+.chip-gold { background:rgba(212,160,66,.1); border:1px solid rgba(212,160,66,.3); color:var(--gold-lt); }
+
+/* Mini cards */
+.mini-cards { display:grid; grid-template-columns:1fr 1fr; gap:.9rem; }
+.mini-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:12px; padding:1.1rem;
+  display:flex; align-items:center; gap:.8rem;
+  transition:border-color .2s, transform .2s;
+}
+.mini-card:hover { border-color:var(--red); transform:translateY(-2px); }
+.mini-icon { font-size:1.4rem; }
+.mini-text .mt { font-size:.88rem; font-weight:700; margin-bottom:.15rem; }
+.mini-text .ms { font-size:.73rem; color:var(--muted); }
+
+
+/* ══════════════ SECTION COMMONS ══════════════ */
+.section { padding:6rem 5%; position:relative; }
+
+.s-label {
+  display:inline-flex; align-items:center; gap:.7rem;
+  font-size:.72rem; font-weight:700; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--red);
+  margin-bottom:.8rem;
+}
+.s-label::before { content:'//'; opacity:.5; }
+
+.s-title {
+  font-family:'Playfair Display',serif;
+  font-weight:900; letter-spacing:-.03em;
+  font-size:clamp(1.9rem,3vw,3rem);
+  line-height:1.1; margin-bottom:1rem;
+}
+
+.s-sub {
+  font-family:'Crimson Pro',serif;
+  font-size:1.1rem; font-weight:300; line-height:1.8;
+  color:var(--off); max-width:560px; margin-bottom:3.2rem;
+}
+
+/* Red divider line */
+.redline {
+  display:block; width:56px; height:3px;
+  background:linear-gradient(90deg,var(--red),transparent);
+  border-radius:2px; margin-bottom:2rem;
+}
+
+
+/* ══════════════ COURSES ══════════════ */
+#courses { background:var(--dark); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+
+.course-grid {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  border-radius:16px; overflow:hidden;
+}
+
+.course-card {
+  background:var(--card);
+  padding:2.2rem 1.6rem;
+  display:flex; flex-direction:column;
+  gap:.8rem;
+  position:relative; overflow:hidden;
+  transition:background .3s;
+  cursor:none;
+}
+.course-card:hover { background:var(--card2); }
+.course-card::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg,var(--red-deep),var(--red-bright));
+  transform:scaleX(0); transform-origin:left; transition:transform .35s;
+}
+.course-card:hover::after { transform:scaleX(1); }
+
+.c-num {
+  font-size:.68rem; letter-spacing:.2em; color:var(--muted);
+  font-weight:700; text-transform:uppercase;
+}
+.c-icon { font-size:2.4rem; }
+.c-name {
+  font-family:'Playfair Display',serif; font-weight:700;
+  font-size:1.15rem; margin-bottom:.2rem;
+}
+.c-desc { font-family:'Crimson Pro',serif; font-size:.95rem; color:var(--muted); line-height:1.6; }
+.c-tag {
+  display:inline-block; padding:.25rem .7rem;
+  border:1px solid var(--border); border-radius:100px;
+  font-size:.68rem; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--red); margin-top:auto;
+}
+
+
+/* ══════════════ BATCHES ══════════════ */
+.batch-layout {
+  display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;
+}
+
+.batch-cards { display:flex; flex-direction:column; gap:1rem; }
+
+.batch-item {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-left:3px solid var(--red-deep);
+  border-radius:0 12px 12px 0;
+  padding:1.5rem 2rem;
+  display:grid; grid-template-columns:auto 1fr auto;
+  gap:1.5rem; align-items:center;
+  transition:all .25s; cursor:none;
+}
+.batch-item:hover {
+  border-left-color:var(--red-bright);
+  background:var(--card2);
+  box-shadow:inset 4px 0 20px rgba(200,16,46,.08);
+  transform:translateX(4px);
+}
+
+.b-num {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:2rem; color:rgba(200,16,46,.25);
+  line-height:1;
+}
+.b-info h4 {
+  font-family:'Rajdhani',sans-serif; font-weight:700;
+  font-size:1.05rem; letter-spacing:.04em; margin-bottom:.3rem;
+}
+.b-info p { font-family:'Crimson Pro',serif; font-size:.92rem; color:var(--muted); }
+.b-arrow { color:var(--red); font-size:1.3rem; opacity:.4; transition:all .2s; }
+.batch-item:hover .b-arrow { opacity:1; transform:translateX(4px); }
+
+/* Right visual */
+.batch-visual {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px; padding:3rem 2.5rem;
+  text-align:center; position:relative; overflow:hidden;
+}
+.batch-visual::before {
+  content:''; position:absolute; top:-60px; left:50%; transform:translateX(-50%);
+  width:250px; height:250px; border-radius:50%;
+  background:radial-gradient(circle,rgba(200,16,46,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+.bv-icon { font-size:3.5rem; margin-bottom:1.2rem; }
+.bv-title {
+  font-family:'Playfair Display',serif; font-weight:700;
+  font-size:1.5rem; margin-bottom:.8rem;
+}
+.bv-desc {
+  font-family:'Crimson Pro',serif; font-size:1rem;
+  color:var(--off); line-height:1.75; margin-bottom:2rem;
+}
+.bv-chips { display:flex; flex-wrap:wrap; gap:.6rem; justify-content:center; }
+.bv-chip {
+  padding:.35rem .9rem; border-radius:100px;
+  font-size:.75rem; font-weight:700; letter-spacing:.06em;
+  text-transform:uppercase;
+  border:1px solid var(--border); color:var(--off);
+  transition:all .2s;
+}
+.bv-chip:hover { border-color:var(--red); color:var(--red); }
+
+
+/* ══════════════ EXPERIENCE STRIP ══════════════ */
+.exp-strip {
+  background:var(--red);
+  padding:3.5rem 5%;
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:2rem; text-align:center;
+  position:relative; overflow:hidden;
+}
+.exp-strip::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(0,0,0,.25) 0%,transparent 50%,rgba(0,0,0,.15) 100%);
+  pointer-events:none;
+}
+.exp-item { position:relative; z-index:1; }
+.exp-num {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:3.2rem; line-height:1; margin-bottom:.3rem;
+  text-shadow:0 2px 10px rgba(0,0,0,.2);
+}
+.exp-label {
+  font-size:.78rem; font-weight:700; letter-spacing:.15em;
+  text-transform:uppercase; opacity:.85;
+}
+
+
+/* ══════════════ WHY US ══════════════ */
+#why { background:var(--dark); border-top:1px solid var(--border); }
+
+.why-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+
+.why-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:14px; padding:2rem;
+  position:relative; overflow:hidden;
+  transition:all .28s; cursor:none;
+}
+.why-card:hover { border-color:var(--red); transform:translateY(-4px); box-shadow:0 12px 40px rgba(200,16,46,.1); }
+.why-card::before {
+  content:''; position:absolute; top:0; left:0;
+  width:3px; height:0; background:var(--red);
+  transition:height .35s; border-radius:0 0 2px 2px;
+}
+.why-card:hover::before { height:100%; }
+
+.wc-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.2rem; }
+.wc-icon { font-size:2rem; }
+.wc-num {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:3rem; color:rgba(200,16,46,.12); line-height:1;
+}
+
+.wc-title {
+  font-family:'Rajdhani',sans-serif; font-weight:700;
+  font-size:1.08rem; letter-spacing:.04em; margin-bottom:.5rem;
+}
+.wc-desc {
+  font-family:'Crimson Pro',serif; font-size:.95rem;
+  color:var(--muted); line-height:1.65;
+}
+
+
+/* ══════════════ CONTACT ══════════════ */
+#contact { border-top:1px solid var(--border); }
+
+.contact-layout {
+  display:grid; grid-template-columns:1fr 1.1fr; gap:5rem; align-items:start;
+}
+
+.contact-block { display:flex; flex-direction:column; gap:1.8rem; margin-bottom:2.5rem; }
+
+.ci {
+  display:flex; gap:1.2rem; align-items:flex-start;
+}
+.ci-icon {
+  width:46px; height:46px; border-radius:10px; flex-shrink:0;
+  background:rgba(200,16,46,.1); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center; font-size:1.2rem;
+}
+.ci-text strong {
+  display:block; font-family:'Rajdhani',sans-serif; font-weight:700;
+  font-size:1rem; letter-spacing:.06em; margin-bottom:.25rem;
+}
+.ci-text span {
+  font-family:'Crimson Pro',serif; font-size:.95rem; color:var(--off); line-height:1.6;
+}
+
+.badge-row { display:flex; gap:.8rem; flex-wrap:wrap; }
+.b-badge {
+  display:flex; align-items:center; gap:.5rem;
+  padding:.5rem 1.1rem; border-radius:100px;
+  border:1px solid var(--border-g);
+  font-size:.78rem; font-weight:600; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--gold);
+  background:rgba(212,160,66,.06);
+}
+
+/* Form */
+.enroll-box {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px; padding:2.8rem;
+  position:relative; overflow:hidden;
+}
+.enroll-box::before {
+  content:''; position:absolute; top:-1px; left:15%; right:15%; height:2px;
+  background:linear-gradient(90deg,transparent,var(--red),transparent);
+}
+
+.form-head {
+  margin-bottom:2rem;
+}
+.form-head h3 {
+  font-family:'Playfair Display',serif; font-weight:700; font-size:1.4rem;
+  margin-bottom:.4rem;
+}
+.form-head p {
+  font-family:'Crimson Pro',serif; font-size:.95rem; color:var(--muted);
+}
+
+.fg { margin-bottom:1.1rem; }
+.fg label {
+  display:block; font-size:.7rem; font-weight:700; letter-spacing:.15em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:.45rem;
+}
+
+.fg input, .fg select {
+  width:100%; background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08); border-radius:8px;
+  padding:.75rem 1rem; color:var(--white);
+  font-family:'Rajdhani',sans-serif; font-size:.95rem; font-weight:500;
+  outline:none; transition:border-color .2s, box-shadow .2s;
+  -webkit-appearance:none; appearance:none; cursor:none;
+}
+.fg input:focus, .fg select:focus {
+  border-color:var(--red); box-shadow:0 0 0 3px rgba(200,16,46,.12);
+}
+.fg input::placeholder { color:var(--muted); }
+.fg select option { background:#1a0810; }
+
+.fg-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+
+.submit {
+  width:100%; margin-top:.8rem;
+  background:var(--red); color:#fff;
+  border:none; border-radius:8px;
+  padding:1rem; font-family:'Rajdhani',sans-serif;
+  font-size:.92rem; font-weight:700; letter-spacing:.12em;
+  text-transform:uppercase; cursor:none;
+  box-shadow:0 6px 30px rgba(200,16,46,.4);
+  transition:all .25s; position:relative; overflow:hidden;
+}
+.submit::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);
+  transform:translateX(-100%); transition:transform .5s;
+}
+.submit:hover::before { transform:translateX(100%); }
+.submit:hover { background:var(--red-bright); box-shadow:0 8px 40px rgba(200,16,46,.6); }
+
+.form-note {
+  text-align:center; font-family:'Crimson Pro',serif;
+  font-size:.85rem; color:var(--muted); margin-top:.9rem;
+}
+
+
+/* ══════════════ FOOTER ══════════════ */
+footer {
+  border-top:1px solid var(--border);
+  padding:2.5rem 5%;
+}
+.footer-inner {
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:1rem;
+}
+.f-logo {
+  font-family:'Playfair Display',serif; font-weight:800; font-size:1.1rem;
+}
+.f-logo span { color:var(--red); }
+
+.f-tagline {
+  font-size:.75rem; font-weight:700; letter-spacing:.25em;
+  text-transform:uppercase; color:var(--gold);
+}
+.f-copy {
+  font-family:'Crimson Pro',serif; font-size:.88rem; color:var(--muted);
+}
+
+/* ══════════════ ANIMATIONS ══════════════ */
+@keyframes riseUp {
+  from { opacity:0; transform:translateY(28px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ══════════════ RESPONSIVE ══════════════ */
+@media(max-width:1100px){
+  .course-grid { grid-template-columns:repeat(3,1fr); }
+}
+@media(max-width:900px){
+  .hero { grid-template-columns:1fr; }
+  .hero-right { display:none; }
+  nav ul { display:none; }
+  .batch-layout,.why-grid,.contact-layout { grid-template-columns:1fr; }
+  .exp-strip { grid-template-columns:1fr 1fr; }
+  .course-grid { grid-template-columns:1fr 1fr; }
+  .hero::before { display:none; }
+  .hero-watermark { display:none; }
+}
+@media(max-width:560px){
+  .course-grid { grid-template-columns:1fr; }
+  .fg-row { grid-template-columns:1fr; }
+  .exp-strip { grid-template-columns:1fr 1fr; }
+  body { cursor:auto; }
+  .cursor,.cursor-ring { display:none; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<!-- ══════════ NAV ══════════ -->
+<nav>
+  <div class="logo">
+    <div class="logo-mark">M</div>
+    <div>
+      <div class="logo-text">Madhu <em>Tech</em> Skills</div>
+      <div class="logo-sub">Excellence in Tech Education</div>
+    </div>
+  </div>
+  <ul>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#batches">Batches</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+    Enroll Free Demo <span class="arrow">→</span>
+  </button>
+</nav>
+
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="hero-watermark">CODE</div>
+  <div class="hero-blob"></div>
+
+  <div class="hero-left">
+    <div class="eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text">Now Enrolling — 2025 Batches Open</span>
+    </div>
+
+    <h1 class="hero-title">
+      Build Your<br>
+      <span class="line2">Future</span> in<br>
+      <span class="accent">Technology</span>
+    </h1>
+
+    <div class="tagline-strip">Code &nbsp;·&nbsp; Build &nbsp;·&nbsp; Succeed</div>
+
+    <p class="hero-desc">
+      Learn programming from a seasoned industry expert with over 20 years of real-world experience. Practical, structured, and career-focused training — from school students to B.Tech graduates.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#contact" class="btn-fire">Book Free Demo →</a>
+      <a href="#courses" class="btn-ghost">Explore Courses</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="mentor-card">
+      <div class="avatar-row">
+        <div class="avatar">M</div>
+        <div class="avatar-info">
+          <h3>Madhu Tech Skills</h3>
+          <p>Senior Developer &amp; Mentor</p>
+        </div>
+      </div>
+      <div class="stat-trio">
+        <div class="stat-box">
+          <div class="n">20+</div>
+          <div class="l">Yrs Exp</div>
+        </div>
+        <div class="stat-box">
+          <div class="n">5+</div>
+          <div class="l">Programs</div>
+        </div>
+        <div class="stat-box">
+          <div class="n">4</div>
+          <div class="l">Batches</div>
+        </div>
+      </div>
+      <div class="mode-row">
+        <div class="mode-chip chip-red">🖥 Online Classes</div>
+        <div class="mode-chip chip-gold">🏫 Offline Classes</div>
+      </div>
+    </div>
+
+    <div class="mini-cards">
+      <div class="mini-card">
+        <div class="mini-icon">⚙️</div>
+        <div class="mini-text"><div class="mt">C &amp; Java</div><div class="ms">Core Programming</div></div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-icon">🐍</div>
+        <div class="mini-text"><div class="mt">Python</div><div class="ms">Modern Scripting</div></div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-icon">🧠</div>
+        <div class="mini-text"><div class="mt">DSA</div><div class="ms">Interview Crack</div></div>
+      </div>
+      <div class="mini-card">
+        <div class="mini-icon">🌐</div>
+        <div class="mini-text"><div class="mt">Full Stack</div><div class="ms">Build Real Apps</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ EXPERIENCE STRIP ══════════ -->
+<div class="exp-strip">
+  <div class="exp-item">
+    <div class="exp-num">20+</div>
+    <div class="exp-label">Years Industry Experience</div>
+  </div>
+  <div class="exp-item">
+    <div class="exp-num">5+</div>
+    <div class="exp-label">Languages & Technologies</div>
+  </div>
+  <div class="exp-item">
+    <div class="exp-num">4</div>
+    <div class="exp-label">Special Batch Programs</div>
+  </div>
+  <div class="exp-item">
+    <div class="exp-num">2</div>
+    <div class="exp-label">Learning Modes — Online &amp; Offline</div>
+  </div>
+</div>
+
+
+<!-- ══════════ COURSES ══════════ -->
+<section class="section" id="courses">
+  <div class="s-label">Programs We Offer</div>
+  <h2 class="s-title">Industry-Aligned<br>Curriculum</h2>
+  <p class="s-sub">A complete tech education path — from programming fundamentals to full-stack web development. Every course is built around real-world projects and job readiness.</p>
+
+  <div class="course-grid">
+    <div class="course-card">
+      <div class="c-num">01</div>
+      <div class="c-icon">⚙️</div>
+      <div class="c-name">C Programming</div>
+      <div class="c-desc">Foundation of all programming — memory, pointers, logic building, and structured thinking from scratch.</div>
+      <div class="c-tag">Fundamentals</div>
+    </div>
+    <div class="course-card">
+      <div class="c-num">02</div>
+      <div class="c-icon">☕</div>
+      <div class="c-name">Java</div>
+      <div class="c-desc">Object-oriented programming, collections, exception handling, and enterprise-ready Java development.</div>
+      <div class="c-tag">OOP</div>
+    </div>
+    <div class="course-card">
+      <div class="c-num">03</div>
+      <div class="c-icon">🐍</div>
+      <div class="c-name">Python</div>
+      <div class="c-desc">Scripting, automation, data handling, and the gateway into AI/ML with Python's rich ecosystem.</div>
+      <div class="c-tag">Versatile</div>
+    </div>
+    <div class="course-card">
+      <div class="c-num">04</div>
+      <div class="c-icon">🧠</div>
+      <div class="c-name">DSA</div>
+      <div class="c-desc">Data Structures &amp; Algorithms — the essential path to crack top-tier tech company interviews.</div>
+      <div class="c-tag">Interview Prep</div>
+    </div>
+    <div class="course-card">
+      <div class="c-num">05</div>
+      <div class="c-icon">🌐</div>
+      <div class="c-name">Full Stack</div>
+      <div class="c-desc">HTML, CSS, JS, React, Node.js &amp; databases — build and deploy complete web applications end-to-end.</div>
+      <div class="c-tag">All Stacks</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ BATCHES ══════════ -->
+<section class="section" id="batches" style="background:var(--dark);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="s-label">Special Batches</div>
+  <h2 class="s-title">Tailored for Every<br>Academic Level</h2>
+  <span class="redline"></span>
+
+  <div class="batch-layout">
+    <div class="batch-cards">
+      <div class="batch-item">
+        <div class="b-num">01</div>
+        <div class="b-info">
+          <h4>5th Standard</h4>
+          <p>Logic building, intro to computers, and fun programming concepts for young learners.</p>
+        </div>
+        <div class="b-arrow">→</div>
+      </div>
+      <div class="batch-item">
+        <div class="b-num">02</div>
+        <div class="b-info">
+          <h4>10th Standard</h4>
+          <p>Computer science basics, C language, and board-aligned practical lab sessions.</p>
+        </div>
+        <div class="b-arrow">→</div>
+      </div>
+      <div class="batch-item">
+        <div class="b-num">03</div>
+        <div class="b-info">
+          <h4>Intermediate (+1 / +2)</h4>
+          <p>Java, Python, and web fundamentals — preparing students for engineering entrance and college.</p>
+        </div>
+        <div class="b-arrow">→</div>
+      </div>
+      <div class="batch-item">
+        <div class="b-num">04</div>
+        <div class="b-info">
+          <h4>B.Tech / Degree</h4>
+          <p>Advanced DSA, full stack projects, placement training, and mock interview preparation.</p>
+        </div>
+        <div class="b-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="batch-visual">
+      <div class="bv-icon">🎓</div>
+      <div class="bv-title">Flexible Learning Modes</div>
+      <div class="bv-desc">
+        Whether you prefer attending in-person or learning from the comfort of home — we offer both, with the same quality of mentoring and attention.
+      </div>
+      <div class="bv-chips">
+        <div class="bv-chip">🖥 Online Classes</div>
+        <div class="bv-chip">🏫 Offline Classes</div>
+        <div class="bv-chip">🌅 Morning Batches</div>
+        <div class="bv-chip">🌆 Evening Batches</div>
+        <div class="bv-chip">📅 Weekend Batches</div>
+        <div class="bv-chip">💬 WhatsApp Support</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ WHY US ══════════ -->
+<section class="section" id="why">
+  <div class="s-label">Why Choose Us</div>
+  <h2 class="s-title">Not Just a Coaching Centre.<br>A Career Launchpad.</h2>
+  <span class="redline"></span>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="wc-top"><div class="wc-icon">🏭</div><div class="wc-num">01</div></div>
+      <div class="wc-title">20+ Years of Real Industry Experience</div>
+      <div class="wc-desc">Every concept is taught by someone who has built real systems in the industry — not just theory from textbooks.</div>
+    </div>
+    <div class="why-card">
+      <div class="wc-top"><div class="wc-icon">🎯</div><div class="wc-num">02</div></div>
+      <div class="wc-title">Personal Attention, Small Batches</div>
+      <div class="wc-desc">Focused batch sizes ensure every student gets individual feedback and guided learning at their own pace.</div>
+    </div>
+    <div class="why-card">
+      <div class="wc-top"><div class="wc-icon">💼</div><div class="wc-num">03</div></div>
+      <div class="wc-title">Project-Based, Job-Ready Curriculum</div>
+      <div class="wc-desc">Real assignments, portfolio projects, and mock interviews — everything companies actually look for during hiring.</div>
+    </div>
+    <div class="why-card">
+      <div class="wc-top"><div class="wc-icon">📶</div><div class="wc-num">04</div></div>
+      <div class="wc-title">Both Online &amp; Offline — Your Choice</div>
+      <div class="wc-desc">Learn from anywhere or attend in-person. Same curriculum, same mentor, same quality — zero compromise.</div>
+    </div>
+    <div class="why-card">
+      <div class="wc-top"><div class="wc-icon">📚</div><div class="wc-num">05</div></div>
+      <div class="wc-title">All Levels, All Ages</div>
+      <div class="wc-desc">From Class 5 students to B.Tech graduates — our batches are designed to match every stage of learning.</div>
+    </div>
+    <div class="why-card">
+      <div class="wc-top"><div class="wc-icon">🤝</div><div class="wc-num">06</div></div>
+      <div class="wc-title">Continuous Mentorship &amp; Support</div>
+      <div class="wc-desc">Doubt clearing, revision sessions, and ongoing WhatsApp support even after batch hours.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ CONTACT ══════════ -->
+<section class="section" id="contact">
+  <div class="s-label">Get In Touch</div>
+  <h2 class="s-title">Start Your Journey.<br>First Class is Free.</h2>
+  <span class="redline"></span>
+
+  <div class="contact-layout">
+    <div>
+      <div class="contact-block">
+        <div class="ci">
+          <div class="ci-icon">📞</div>
+          <div class="ci-text">
+            <strong>Phone &amp; WhatsApp</strong>
+            <span>+91 98765 43210<br>Available Mon–Sat, 9 AM – 8 PM</span>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">📍</div>
+          <div class="ci-text">
+            <strong>Our Location</strong>
+            <span>123, Tech Nagar, Near City Bus Stand,<br>Hyderabad, Telangana – 500001</span>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">✉️</div>
+          <div class="ci-text">
+            <strong>Email</strong>
+            <span>info@madhutechskills.com</span>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">⏰</div>
+          <div class="ci-text">
+            <strong>Batch Timings</strong>
+            <span>Morning · Evening · Weekend batches<br>Customised schedules available</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="badge-row">
+        <div class="b-badge">✓ Free Demo Class</div>
+        <div class="b-badge">✓ Flexible Timings</div>
+        <div class="b-badge">✓ Online &amp; Offline</div>
+      </div>
+    </div>
+
+    <div class="enroll-box">
+      <div class="form-head">
+        <h3>Book Your Free Demo</h3>
+        <p>Fill in your details — we'll call you within 24 hours.</p>
+      </div>
+
+      <div class="fg">
+        <label>Full Name</label>
+        <input type="text" placeholder="Your full name">
+      </div>
+      <div class="fg-row">
+        <div class="fg">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+91 XXXXX XXXXX">
+        </div>
+        <div class="fg">
+          <label>Academic Level</label>
+          <select>
+            <option value="">Select level</option>
+            <option>5th Standard</option>
+            <option>10th Standard</option>
+            <option>Intermediate (+1/+2)</option>
+            <option>B.Tech / Degree</option>
+            <option>Working Professional</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg">
+        <label>Course Interested In</label>
+        <select>
+          <option value="">Select a course</option>
+          <option>C Programming</option>
+          <option>Java</option>
+          <option>Python</option>
+          <option>DSA – Data Structures &amp; Algorithms</option>
+          <option>Full Stack Development</option>
+          <option>Multiple / Not Sure Yet</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Preferred Learning Mode</label>
+        <select>
+          <option>Online</option>
+          <option>Offline (In-Person)</option>
+          <option>Either works for me</option>
+        </select>
+      </div>
+
+      <button class="submit" onclick="alert('✅ Thank you! Our team will reach out to you shortly.')">
+        Book Free Demo Class →
+      </button>
+      <div class="form-note">No payment needed · 100% free first class · No obligation</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="f-logo">Madhu <span>Tech</span> Skills</div>
+    <div class="f-tagline">Code &nbsp;·&nbsp; Build &nbsp;·&nbsp; Succeed</div>
+    <div class="f-copy">© 2025 Madhu Tech Skills. All rights reserved.</div>
+  </div>
+</footer>
+
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('ring');
+let mx=0,my=0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx+'px'; cursor.style.top = my+'px';
+  ring.style.left   = mx+'px'; ring.style.top  = my+'px';
+});
+
+document.querySelectorAll('a,button,.course-card,.batch-item,.why-card,.mini-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cursor.style.width='18px'; cursor.style.height='18px';
+    cursor.style.background='var(--gold)';
+    ring.style.width='50px'; ring.style.height='50px';
+    ring.style.borderColor='rgba(212,160,66,0.5)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cursor.style.width='10px'; cursor.style.height='10px';
+    cursor.style.background='var(--red-bright)';
+    ring.style.width='34px'; ring.style.height='34px';
+    ring.style.borderColor='rgba(200,16,46,0.5)';
+  });
+});
+
+// Scroll reveal
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.12});
+
+document.querySelectorAll('.course-card,.batch-item,.why-card,.ci,.mini-card').forEach((el,i)=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(28px)';
+  el.style.transition=`opacity .55s ${i*0.06}s ease, transform .55s ${i*0.06}s ease`;
+  io.observe(el);
+});
+</script>
+</body>
+</html>
